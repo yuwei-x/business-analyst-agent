@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!--
+	  BEAM LaunchAgent 模板
+	  使用前替换所有 {{占位符}}：
+	    {{LABEL}}         → plist 标识符，如 com.yuwei.cosmetics-dashboard
+	    {{PROJECT_DIR}}   → 项目根目录绝对路径
+	    {{HOUR}}          → 触发小时（24h），如 8
+	    {{MINUTE}}        → 触发分钟，如 0
+	-->
+
+	<key>Label</key>
+	<string>{{LABEL}}</string>
+
+	<key>ProgramArguments</key>
+	<array>
+		<string>/bin/bash</string>
+		<string>{{PROJECT_DIR}}/Skills/daily-report/scripts/refresh_pipeline.sh</string>
+	</array>
+
+	<key>WorkingDirectory</key>
+	<string>{{PROJECT_DIR}}</string>
+
+	<key>StartCalendarInterval</key>
+	<dict>
+		<key>Hour</key>
+		<integer>{{HOUR}}</integer>
+		<key>Minute</key>
+		<integer>{{MINUTE}}</integer>
+	</dict>
+
+	<key>StandardOutPath</key>
+	<string>{{PROJECT_DIR}}/logs/launchagent.log</string>
+
+	<key>StandardErrorPath</key>
+	<string>{{PROJECT_DIR}}/logs/launchagent.log</string>
+
+	<key>EnvironmentVariables</key>
+	<dict>
+		<key>PATH</key>
+		<string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+		<key>HOME</key>
+		<string>/Users/yuwei</string>
+	</dict>
+
+	<key>RunAtLoad</key>
+	<false/>
+</dict>
+</plist>
